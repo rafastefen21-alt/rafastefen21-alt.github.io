@@ -46,17 +46,18 @@ nav.scrolled {
   padding: 1.1rem 5rem;
   box-shadow: 0 1px 0 var(--border);
 }
-.nav-logo { display: flex; align-items: center; gap: .9rem; text-decoration: none; }
-.nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
-.nav-logo-text .fiducia {
-  font-family: 'Cinzel', serif; font-size: .85rem; letter-spacing: .2em;
-  color: var(--off-white); transition: color .4s;
+.nav-logo { display: flex; align-items: center; text-decoration: none; }
+.nav-logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+  /* the logo has black bg — invert only when scrolled to light bg */
+  transition: filter .4s;
 }
-.nav-logo-text .domus {
-  font-family: 'Cinzel', serif; font-size: .85rem; letter-spacing: .2em;
-  color: var(--laranja);
+nav.scrolled .nav-logo-img {
+  /* on light background show the dark version naturally */
+  filter: none;
 }
-nav.scrolled .nav-logo-text .fiducia { color: var(--verde-escuro); }
 
 .nav-links { display: flex; gap: 2.8rem; list-style: none; }
 .nav-links a {
@@ -79,40 +80,50 @@ nav.scrolled .nav-links a { color: var(--text-muted); }
 .hero {
   min-height: 100vh; position: relative;
   display: flex; flex-direction: column;
-  justify-content: flex-end; padding: 0 5rem 9rem;
-  overflow: hidden;
+  align-items: center; justify-content: center;
+  padding: 10rem 5rem 8rem;
+  overflow: hidden; text-align: center;
 }
 .hero-bg {
   position: absolute; inset: 0;
   background:
-    linear-gradient(160deg, rgba(29,35,22,.92) 0%, rgba(40,50,30,.78) 45%, rgba(61,73,49,.5) 100%),
-    url('https://images.unsplash.com/photo-1474722883778-792e7fb1bd55?w=1800&q=85') center/cover no-repeat;
+    linear-gradient(180deg, rgba(20,27,15,.88) 0%, rgba(35,44,25,.82) 55%, rgba(20,27,15,.95) 100%),
+    url('https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1800&q=85') center/cover no-repeat;
 }
 .hero-bg::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 35%;
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 28%;
   background: linear-gradient(to top, var(--off-white) 0%, transparent 100%);
 }
-.hero-content { position: relative; z-index: 2; max-width: 860px; }
-
+#hero-canvas {
+  position: absolute; inset: 0; z-index: 1;
+  pointer-events: none; opacity: .55;
+  width: 100%; height: 100%;
+}
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 1100px; width: 100%;
+  display: flex; flex-direction: column; align-items: center;
+}
 .hero-eyebrow {
   display: flex; align-items: center; gap: 1.2rem;
   font-size: .6rem; letter-spacing: .5em; text-transform: uppercase;
-  color: var(--laranja); margin-bottom: 2.2rem;
+  color: var(--laranja); margin-bottom: 2.4rem;
   opacity: 0; animation: fadeUp .7s .2s forwards;
+  justify-content: center;
 }
 .hero-eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--laranja); }
-
+.hero-eyebrow::after  { content: ''; width: 40px; height: 1px; background: var(--laranja); }
 .hero h1 {
   font-family: 'Cormorant Garamond', serif; font-weight: 300;
-  font-size: clamp(3rem, 6.5vw, 5.6rem); line-height: 1.06;
+  font-size: clamp(3rem, 5.5vw, 5.6rem); line-height: 1.06;
   color: var(--off-white); margin-bottom: 2rem;
   opacity: 0; animation: fadeUp .9s .4s forwards;
+  white-space: nowrap;
 }
-.hero h1 em { font-style: italic; color: rgba(254,245,239,.45); }
-
+.hero h1 em { font-style: italic; color: var(--laranja); }
 .hero-sub {
   font-size: 1rem; font-weight: 300; line-height: 1.85;
-  color: rgba(254,245,239,.55); max-width: 540px; margin-bottom: 3.5rem;
+  color: rgba(254,245,239,.52); max-width: 560px; margin-bottom: 3.5rem;
   opacity: 0; animation: fadeUp .9s .6s forwards;
 }
 .hero-cta {
@@ -168,14 +179,15 @@ section { padding: 8rem 5rem; }
   color: rgba(255,255,255,.028); letter-spacing: -.03em; white-space: nowrap;
   pointer-events: none; user-select: none;
 }
-.europa-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: center; position: relative; z-index: 1; }
+.europa-inner { display: grid; grid-template-columns: 1.15fr .85fr; gap: 5rem; align-items: center; position: relative; z-index: 1; }
 .europa-text .sec-tag { color: var(--laranja); }
 .europa-text .sec-tag::before { background: var(--laranja); }
 .europa-text h2 {
-  font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 4vw, 3.4rem);
-  font-weight: 400; line-height: 1.15; color: var(--off-white); margin-bottom: 2rem;
+  font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 3.8vw, 3.6rem);
+  font-weight: 400; line-height: 1.12; color: var(--off-white); margin-bottom: 2rem;
+  white-space: nowrap;
 }
-.europa-text h2 em { font-style: italic; color: var(--laranja); }
+.europa-text h2 em { font-style: italic; color: var(--laranja); white-space: normal; }
 .europa-text p { font-size: .95rem; line-height: 1.9; color: rgba(254,245,239,.5); margin-bottom: 1.2rem; }
 
 .pillars { display: flex; flex-direction: column; gap: 1px; }
@@ -225,18 +237,74 @@ section { padding: 8rem 5rem; }
   font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3.5vw, 3.2rem);
   font-weight: 400; line-height: 1.12; color: var(--verde-escuro); margin-bottom: .8rem;
 }
-.operacao .sub { font-size: .9rem; color: var(--text-muted); margin-bottom: 4.5rem; line-height: 1.7; }
-.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--border); }
-.step {
-  padding: 3rem 2rem 2.5rem; border-right: 1px solid var(--border);
-  transition: background .3s;
+.operacao .sub { font-size: .9rem; color: var(--text-muted); margin-bottom: 5rem; line-height: 1.7; }
+
+/* vertical timeline */
+.steps {
+  display: grid;
+  grid-template-columns: 200px 2px 1fr;
+  gap: 0;
+  max-width: 860px;
+  position: relative;
 }
-.step:last-child { border-right: none; }
-.step:hover { background: rgba(61,73,49,.04); }
-.step-n { font-family: 'Cormorant Garamond', serif; font-size: 4rem; font-weight: 300; color: var(--verde-medio); opacity: .35; line-height: 1; margin-bottom: 1.5rem; display: block; }
-.step h4 { font-family: 'Cinzel', serif; font-size: .7rem; letter-spacing: .15em; color: var(--verde-escuro); margin-bottom: .8rem; }
-.step p { font-size: .85rem; line-height: 1.75; color: var(--text-muted); }
-.step-tag { display: inline-block; margin-top: 1.2rem; font-size: .6rem; letter-spacing: .25em; text-transform: uppercase; color: var(--laranja); padding: .3rem .8rem; border: 1px solid rgba(245,133,63,.25); }
+.timeline-line-wrap {
+  grid-column: 2;
+  grid-row: 1 / span 4;
+  display: flex; flex-direction: column; align-items: center;
+  position: relative;
+}
+.timeline-line {
+  width: 2px;
+  background: linear-gradient(to bottom, var(--verde-medio), rgba(136,171,117,.15));
+  flex: 1;
+  position: relative;
+}
+.timeline-line::after {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  background: var(--laranja);
+  height: 0%;
+  transition: height 1.8s cubic-bezier(.4,0,.2,1);
+}
+.timeline-line.animated::after { height: 100%; }
+
+.step {
+  display: contents;
+}
+.step-left {
+  grid-column: 1;
+  padding: 0 2.5rem 4rem 0;
+  display: flex; flex-direction: column; align-items: flex-end;
+  text-align: right;
+  position: relative;
+}
+.step-right {
+  grid-column: 3;
+  padding: 0 0 4rem 2.5rem;
+  position: relative;
+}
+.step-dot {
+  position: absolute; right: -1.25rem; top: .35rem;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--off-white);
+  border: 2px solid var(--verde-medio);
+  z-index: 2;
+  transition: background .3s, border-color .3s, transform .3s;
+}
+.step:hover .step-dot { background: var(--laranja); border-color: var(--laranja); transform: scale(1.4); }
+.step-n {
+  font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300;
+  color: var(--verde-medio); opacity: .3; line-height: 1; display: block; margin-bottom: .3rem;
+}
+.step-tag {
+  display: inline-block; font-size: .58rem; letter-spacing: .25em; text-transform: uppercase;
+  color: var(--laranja); padding: .25rem .7rem; border: 1px solid rgba(245,133,63,.3);
+}
+.step h4 {
+  font-family: 'Cinzel', serif; font-size: .72rem; letter-spacing: .15em;
+  color: var(--verde-escuro); margin-bottom: .7rem;
+}
+.step p { font-size: .88rem; line-height: 1.8; color: var(--text-muted); }
 
 /* ─── CONTATO ─── */
 .contato {
@@ -309,17 +377,18 @@ footer {
   .hero { padding: 0 2.5rem 7rem; }
   section { padding: 6rem 2.5rem; }
   .qs-inner, .europa-inner, .contato { grid-template-columns: 1fr; gap: 4rem; }
+  .europa-text h2 { white-space: normal; }
   .pgrid { grid-template-columns: repeat(2, 1fr); }
-  .steps { grid-template-columns: repeat(2, 1fr); }
-  .step:nth-child(2) { border-right: none; }
+  .steps { grid-template-columns: 80px 2px 1fr; }
   footer { flex-direction: column; gap: 1.5rem; text-align: center; }
 }
 @media (max-width: 640px) {
   .nav-links { display: none; }
   .hero h1 { font-size: 2.6rem; }
   .pgrid { grid-template-columns: 1fr; }
-  .steps { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 60px 2px 1fr; }
   .frow { grid-template-columns: 1fr; }
+  .step-n { font-size: 2.2rem; }
 }
 </style>
 </head>
@@ -328,25 +397,7 @@ footer {
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">
-    <!-- Logo SVG recriado vetorialmente -->
-    <svg width="36" height="36" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Hexágono/escudo externo -->
-      <path d="M50 4 L88 24 L88 68 Q88 92 50 106 Q12 92 12 68 L12 24 Z" fill="none" stroke="#FEF5EF" stroke-width="3.5" opacity="0.7"/>
-      <!-- Escudo interno -->
-      <path d="M50 15 L78 30 L78 65 Q78 84 50 96 Q22 84 22 65 L22 30 Z" fill="none" stroke="#FEF5EF" stroke-width="2" opacity="0.3"/>
-      <!-- Letra D estilizada -->
-      <path d="M38 38 L38 72 L53 72 Q67 72 67 55 Q67 38 53 38 Z" fill="none" stroke="#FEF5EF" stroke-width="3" stroke-linejoin="round"/>
-      <!-- Pé do D -->
-      <line x1="50" y1="72" x2="50" y2="76" stroke="#FEF5EF" stroke-width="2" opacity="0.5"/>
-      <!-- Estrelas -->
-      <polygon points="33,8 34.2,11.7 38,11.7 35,13.8 36.2,17.5 33,15.4 29.8,17.5 31,13.8 28,11.7 31.8,11.7" fill="#F5853F"/>
-      <polygon points="50,5 51.2,8.7 55,8.7 52,10.8 53.2,14.5 50,12.4 46.8,14.5 48,10.8 45,8.7 48.8,8.7" fill="#F5853F"/>
-      <polygon points="67,8 68.2,11.7 72,11.7 69,13.8 70.2,17.5 67,15.4 63.8,17.5 65,13.8 62,11.7 65.8,11.7" fill="#F5853F"/>
-    </svg>
-    <span class="nav-logo-text">
-      <span class="fiducia">FIDUCIA</span>
-      <span class="domus">DOMUS</span>
-    </span>
+    <img src="logo-fiducia.png" alt="Fiducia Domus" class="nav-logo-img">
   </a>
   <ul class="nav-links">
     <li><a href="#quem-somos">Quem Somos</a></li>
@@ -360,9 +411,10 @@ footer {
 <!-- HERO -->
 <div class="hero" id="home">
   <div class="hero-bg"></div>
+  <canvas id="hero-canvas"></canvas>
   <div class="hero-content">
     <div class="hero-eyebrow">Importação Europeia · Brasil</div>
-    <h1>Produtos do<br>Velho Mundo.<br><em>Distribuídos no Brasil</em><br>por quem entende<br>o que está trazendo.</h1>
+    <h1>Produtos do Velho Mundo.<br><em>Distribuídos no Brasil</em><br>por quem entende o que está trazendo.</h1>
     <p class="hero-sub">A Fiducia Domus seleciona, importa e distribui produtos europeus de qualidade para atacadistas, restaurantes e empresas em todo o Brasil.</p>
     <a href="#contato" class="hero-cta">Entre em contato <span class="arr">→</span></a>
   </div>
@@ -394,7 +446,7 @@ footer {
   <div class="europa-inner">
     <div class="europa-text reveal">
       <div class="sec-tag">O Que Nos Move</div>
-      <h2>Europa não é<br>só origem.<br><em>É critério.</em></h2>
+      <h2>Europa não é só origem.<br><em>É critério.</em></h2>
       <p>Existe uma razão pela qual produtos do Velho Mundo carregam uma reputação que nenhum rótulo genérico consegue imitar. Séculos de técnica, terroir, cultura produtiva.</p>
       <p>Não trabalhamos com volume por volume. Trabalhamos com produtos que têm história, qualidade e mercado — e que o Brasil ainda não acessa da forma que merece.</p>
     </div>
@@ -473,7 +525,7 @@ footer {
       </div>
     </div>
     <div class="pcard reveal d3">
-      <div class="pcard-bg" style="background-image:url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&q=85')"></div>
+      <div class="pcard-bg" style="background-image:url('lifestyle-foto.png')"></div>
       <div class="pcard-ov"></div>
       <div class="pcard-txt">
         <span class="pcard-cat">Europa · Portfólio</span>
@@ -490,30 +542,62 @@ footer {
   <div class="sec-tag reveal">Operação</div>
   <h2 class="reveal">Da Europa ao seu estoque.<br>Com responsabilidade em cada etapa.</h2>
   <p class="sub reveal">Quatro etapas. Uma operação integrada. Sem intermediários ocultos.</p>
-  <div class="steps">
-    <div class="step reveal">
-      <span class="step-n">01</span>
-      <h4>Seleção</h4>
-      <p>Identificamos e desenvolvemos fornecedores europeus com produto de qualidade comprovada.</p>
-      <span class="step-tag">Europa</span>
+  <div class="steps" id="timeline">
+    <!-- linha central -->
+    <div class="timeline-line-wrap" style="grid-column:2;grid-row:1/span 8;">
+      <div class="timeline-line" id="tl-line"></div>
     </div>
-    <div class="step reveal d1">
-      <span class="step-n">02</span>
-      <h4>Importação</h4>
-      <p>Gerenciamos todo o processo: negociação, logística internacional e desembaraço no Brasil.</p>
-      <span class="step-tag">Operação</span>
+
+    <!-- passo 1 -->
+    <div class="step">
+      <div class="step-left reveal">
+        <span class="step-n">01</span>
+        <span class="step-tag">Europa</span>
+        <div class="step-dot"></div>
+      </div>
+      <div class="step-right reveal d1">
+        <h4>Seleção</h4>
+        <p>Identificamos e desenvolvemos fornecedores europeus com produto de qualidade comprovada.</p>
+      </div>
     </div>
-    <div class="step reveal d2">
-      <span class="step-n">03</span>
-      <h4>Distribuição & Venda</h4>
-      <p>Entregamos para atacadistas, restaurantes e empresas com fornecimento estruturado e pontos de venda próprios.</p>
-      <span class="step-tag">Brasil</span>
+
+    <!-- passo 2 -->
+    <div class="step">
+      <div class="step-left reveal">
+        <span class="step-n">02</span>
+        <span class="step-tag">Operação</span>
+        <div class="step-dot"></div>
+      </div>
+      <div class="step-right reveal d1">
+        <h4>Importação</h4>
+        <p>Gerenciamos todo o processo: negociação, logística internacional e desembaraço no Brasil.</p>
+      </div>
     </div>
-    <div class="step reveal d3">
-      <span class="step-n">04</span>
-      <h4>Expansão de Portfólio</h4>
-      <p>Continuamos desenvolvendo novas categorias com o mesmo critério. O portfólio nunca para — mas nunca abre mão do padrão.</p>
-      <span class="step-tag">Crescimento</span>
+
+    <!-- passo 3 -->
+    <div class="step">
+      <div class="step-left reveal">
+        <span class="step-n">03</span>
+        <span class="step-tag">Brasil</span>
+        <div class="step-dot"></div>
+      </div>
+      <div class="step-right reveal d1">
+        <h4>Distribuição & Venda</h4>
+        <p>Entregamos para atacadistas, restaurantes e empresas com fornecimento estruturado e pontos de venda próprios.</p>
+      </div>
+    </div>
+
+    <!-- passo 4 -->
+    <div class="step">
+      <div class="step-left reveal">
+        <span class="step-n">04</span>
+        <span class="step-tag">Crescimento</span>
+        <div class="step-dot"></div>
+      </div>
+      <div class="step-right reveal d1">
+        <h4>Expansão de Portfólio</h4>
+        <p>Continuamos desenvolvendo novas categorias com o mesmo critério. O portfólio nunca para — mas nunca abre mão do padrão.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -554,15 +638,8 @@ footer {
 
 <!-- FOOTER -->
 <footer>
-  <div style="display:flex;align-items:center;gap:.8rem;">
-    <svg width="24" height="26" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M50 4 L88 24 L88 68 Q88 92 50 106 Q12 92 12 68 L12 24 Z" fill="none" stroke="#FEF5EF" stroke-width="3.5" opacity="0.4"/>
-      <path d="M38 38 L38 72 L53 72 Q67 72 67 55 Q67 38 53 38 Z" fill="none" stroke="#F5853F" stroke-width="3" stroke-linejoin="round"/>
-    </svg>
-    <div class="footer-brand">
-      <span class="f">FIDUCIA</span>
-      <span class="d">DOMUS</span>
-    </div>
+  <div style="display:flex;align-items:center;">
+    <img src="logo-fiducia.png" alt="Fiducia Domus" style="height:40px;width:auto;object-fit:contain;">
   </div>
   <p class="footer-copy">© 2024 Fiducia Domus. Importação & Distribuição Europeia.</p>
   <div class="footer-links">
@@ -584,6 +661,15 @@ const io = new IntersectionObserver(entries => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 els.forEach(el => io.observe(el));
 
+// Timeline line animation on scroll
+const tlLine = document.getElementById('tl-line');
+if (tlLine) {
+  const tlObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { tlLine.classList.add('animated'); tlObs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  tlObs.observe(document.getElementById('timeline'));
+}
+
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
@@ -592,6 +678,136 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
+
+// ── HERO CANVAS: fluid vertex network in orange ──
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes, mouse = { x: -999, y: -999 };
+
+  const ORANGE = '245,133,63';
+  const NODE_COUNT = 55;
+  const MAX_DIST = 180;
+  const WAVE_SPEED = 0.0008;
+
+  function resize() {
+    W = canvas.width  = canvas.parentElement.offsetWidth;
+    H = canvas.height = canvas.parentElement.offsetHeight;
+    canvas.style.width  = W + 'px';
+    canvas.style.height = H + 'px';
+  }
+
+  function createNodes() {
+    nodes = [];
+    for (let i = 0; i < NODE_COUNT; i++) {
+      nodes.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        vx: (Math.random() - .5) * .45,
+        vy: (Math.random() - .5) * .45,
+        r:  Math.random() * 1.8 + .8,
+        phase: Math.random() * Math.PI * 2,
+        speed: WAVE_SPEED * (.6 + Math.random() * .8),
+        ox: 0, oy: 0,   // wave offset
+      });
+    }
+  }
+
+  let t = 0;
+  function draw() {
+    t++;
+    ctx.clearRect(0, 0, W, H);
+
+    // update positions with gentle wave drift
+    nodes.forEach(n => {
+      n.ox = Math.sin(t * n.speed + n.phase) * 28;
+      n.oy = Math.cos(t * n.speed * .7 + n.phase + 1) * 18;
+      let px = n.x + n.ox;
+      let py = n.y + n.oy;
+
+      // base drift
+      n.x += n.vx;
+      n.y += n.vy;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+
+      n._px = px; n._py = py;
+    });
+
+    // draw edges
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j];
+        const dx = a._px - b._px, dy = a._py - b._py;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < MAX_DIST) {
+          // proximity to mouse boosts opacity
+          const mda = Math.hypot(a._px - mouse.x, a._py - mouse.y);
+          const mdb = Math.hypot(b._px - mouse.x, b._py - mouse.y);
+          const proximity = Math.max(0, 1 - Math.min(mda, mdb) / 220);
+          const alpha = (1 - dist / MAX_DIST) * (.18 + proximity * .45);
+
+          // fluid wave pulse along edge
+          const pulse = .5 + .5 * Math.sin(t * .025 + i * .4 + j * .3);
+          const finalAlpha = alpha * (.7 + .3 * pulse);
+
+          ctx.beginPath();
+          ctx.moveTo(a._px, a._py);
+
+          // curved fluid line via bezier
+          const mx = (a._px + b._px) / 2 + Math.sin(t * .012 + i) * 12;
+          const my = (a._py + b._py) / 2 + Math.cos(t * .01 + j) * 12;
+          ctx.quadraticCurveTo(mx, my, b._px, b._py);
+
+          ctx.strokeStyle = `rgba(${ORANGE},${finalAlpha.toFixed(3)})`;
+          ctx.lineWidth = .8 + proximity * .7;
+          ctx.stroke();
+        }
+      }
+    }
+
+    // draw nodes
+    nodes.forEach((n, i) => {
+      const md = Math.hypot(n._px - mouse.x, n._py - mouse.y);
+      const proximity = Math.max(0, 1 - md / 180);
+      const pulse = .5 + .5 * Math.sin(t * .03 + n.phase);
+      const alpha = .25 + proximity * .6 + pulse * .1;
+      const r = n.r * (1 + proximity * 1.6);
+
+      // glow
+      if (proximity > .1) {
+        const grd = ctx.createRadialGradient(n._px, n._py, 0, n._px, n._py, r * 6);
+        grd.addColorStop(0, `rgba(${ORANGE},${(proximity * .35).toFixed(3)})`);
+        grd.addColorStop(1, `rgba(${ORANGE},0)`);
+        ctx.beginPath();
+        ctx.arc(n._px, n._py, r * 6, 0, Math.PI * 2);
+        ctx.fillStyle = grd;
+        ctx.fill();
+      }
+
+      ctx.beginPath();
+      ctx.arc(n._px, n._py, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${ORANGE},${alpha.toFixed(3)})`;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', () => { resize(); createNodes(); });
+  window.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - rect.left;
+    mouse.y = e.clientY - rect.top;
+  });
+  window.addEventListener('mouseleave', () => { mouse.x = -999; mouse.y = -999; });
+
+  resize();
+  createNodes();
+  draw();
+})();
 </script>
 </body>
 </html>
+
